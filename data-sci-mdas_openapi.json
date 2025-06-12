@@ -1,0 +1,3938 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "FastAPI",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/healthcheck": {
+      "get": {
+        "summary": "Check Health",
+        "operationId": "check_health_healthcheck_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthCheck"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/data-sci-mdas/v1/cycles": {
+      "get": {
+        "tags": [
+          "Cycles"
+        ],
+        "summary": "Get Cycles In Range For User",
+        "description": "GET endpoint to retrieve all cycle events for a user during a specified time range\nArgs:\n    user_id: ID of the user\n    start: Start of the time range to get cycle events for\n    end: End of time range to get cycle events for\n    cycles_dao: CyclesDAO instance\n\nReturns: List of cycle event data",
+        "operationId": "get_cycles_in_range_for_user_data_sci_mdas_v1_cycles_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Userid"
+            },
+            "name": "userId",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "title": "Start"
+            },
+            "name": "start",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "title": "End"
+            },
+            "name": "end",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/models__api__v1__cycles__responses__MDASCycle"
+                  },
+                  "type": "array",
+                  "title": "Response Get Cycles In Range For User Data Sci Mdas V1 Cycles Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Cycles"
+        ],
+        "summary": "Create Cycle",
+        "description": "POST endpoint to create a new cycle event\nNote: This endpoint is for internal application use only. External customers should use the GET endpoints instead.\n\nArgs:\n    create_cycle_request: Cycle event data\n    cycles_dao: CyclesDAO instance\n\nReturns: None",
+        "operationId": "create_cycle_data_sci_mdas_v1_cycles_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/models__api__v1__cycles__requests__CreateMDASCycleRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/data-sci-mdas/v1/cycles/batch": {
+      "post": {
+        "tags": [
+          "Cycles"
+        ],
+        "summary": "Batch Create Cycles",
+        "description": "POST endpoint to create multiple cycle events\nNote: This endpoint is for internal application use only. External customers should use the GET endpoints instead.\n\nArgs:\n    batch_create_cycles_request: Multiple cycle events\n    cycles_dao: CyclesDAO instance\n\nReturns: None",
+        "operationId": "batch_create_cycles_data_sci_mdas_v1_cycles_batch_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchCreateMDASCyclesRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/data-sci-mdas/v1/cycles/{cycle_id}": {
+      "put": {
+        "tags": [
+          "Cycles"
+        ],
+        "summary": "Update Cycle",
+        "description": "PUT endpoint for updating an existing cycle event\nNote: This endpoint is for internal application use only. External customers should use the GET endpoints instead.\n\nArgs:\n    cycle_id: ID of the cycle event\n    update_cycles_request: Cycle event data\n    cycles_dao: CyclesDAO instance\n\nReturns: None",
+        "operationId": "update_cycle_data_sci_mdas_v1_cycles__cycle_id__put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Cycle Id"
+            },
+            "name": "cycle_id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/models__api__v1__cycles__requests__UpdateMDASCycleRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Cycles"
+        ],
+        "summary": "Delete Cycle",
+        "description": "DELETE endpoint to delete a recovery event\nNote: This endpoint is for internal application use only. External customers should use the GET endpoints instead.\n\nArgs:\n    cycle_id: ID of the cycle event\n    cycles_dao: CyclesDAO instance\n\nReturns: None",
+        "operationId": "delete_cycle_data_sci_mdas_v1_cycles__cycle_id__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Cycle Id"
+            },
+            "name": "cycle_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/data-sci-mdas/v1/activities": {
+      "get": {
+        "tags": [
+          "Activities"
+        ],
+        "summary": "Get Activities In Range For User",
+        "description": "GET endpoint to retrieve all activity events for user during a specified time range\nArgs:\n    user_id: ID of the user\n    start: Start of time range to get activity events for\n    end: End of time range to get activity events for\n    activities_dao: ActivitiesDAO instance\n\nReturns: List of recovery event data",
+        "operationId": "get_activities_in_range_for_user_data_sci_mdas_v1_activities_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Userid"
+            },
+            "name": "userId",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "title": "Start"
+            },
+            "name": "start",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "title": "End"
+            },
+            "name": "end",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/models__api__v1__activities__responses__MDASActivity"
+                  },
+                  "type": "array",
+                  "title": "Response Get Activities In Range For User Data Sci Mdas V1 Activities Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Activities"
+        ],
+        "summary": "Create Activity",
+        "description": "POST endpoint to create a new activity event\nNote: This endpoint is for internal application use only. External customers should use the GET endpoints instead.\n\nArgs:\n    create_activity_request: Activity event data\n    activities_dao: ActivitiesDAO instance\n\nReturns: None",
+        "operationId": "create_activity_data_sci_mdas_v1_activities_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/models__api__v1__activities__requests__CreateMDASActivityRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/data-sci-mdas/v1/activities/batch": {
+      "post": {
+        "tags": [
+          "Activities"
+        ],
+        "summary": "Batch Create Activities",
+        "description": "POST endpoint to create multiple activity events\nNote: This endpoint is for internal application use only. External customers should use the GET endpoints instead.\n\nArgs:\n    batch_create_activities_request: Multiple activity events\n    activities_dao: ActivitiesDAO instance\n\nReturns: None",
+        "operationId": "batch_create_activities_data_sci_mdas_v1_activities_batch_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchCreateMDASActivitiesRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/data-sci-mdas/v1/activities/{activity_id}": {
+      "put": {
+        "tags": [
+          "Activities"
+        ],
+        "summary": "Update Activity",
+        "description": "PUT endpoint to update an activity event\nNote: This endpoint is for internal application use only. External customers should use the GET endpoints instead.\n\nArgs:\n    activity_id: ID of the activity event\n    update_activities_request: Activity event data\n    activities_dao: ActivitiesDAO instance\n\nReturns: None",
+        "operationId": "update_activity_data_sci_mdas_v1_activities__activity_id__put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Activity Id"
+            },
+            "name": "activity_id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/models__api__v1__activities__requests__UpdateMDASActivityRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Activities"
+        ],
+        "summary": "Delete Activity",
+        "description": "DELETE endpoint to delete an activity event\nNote: This endpoint is for internal application use only. External customers should use the GET endpoints instead.\n\nArgs:\n    activity_id: ID of the activity event\n    activities_dao: ActivitiesDAO instance\n\nReturns: None",
+        "operationId": "delete_activity_data_sci_mdas_v1_activities__activity_id__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Activity Id"
+            },
+            "name": "activity_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/data-sci-mdas/v1/recoveries": {
+      "get": {
+        "tags": [
+          "Recoveries"
+        ],
+        "summary": "Get Recoveries In Range For User",
+        "description": "GET endpoint to retrieve all recovery events for user during a specified time range\nArgs:\n    user_id: ID of the user\n    start: Start of time range to get recovery events for\n    end: End of time range to get recovery events for\n    recoveries_dao: RecoveriesDAO instance\n\nReturns: List of recovery event data",
+        "operationId": "get_recoveries_in_range_for_user_data_sci_mdas_v1_recoveries_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Userid"
+            },
+            "name": "userId",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "title": "Start"
+            },
+            "name": "start",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "title": "End"
+            },
+            "name": "end",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/models__api__v1__recoveries__responses__MDASRecovery"
+                  },
+                  "type": "array",
+                  "title": "Response Get Recoveries In Range For User Data Sci Mdas V1 Recoveries Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Recoveries"
+        ],
+        "summary": "Create Recovery",
+        "description": "POST endpoint to create a new recovery event\nNote: This endpoint is for internal application use only. External customers should use the GET endpoints instead.\n\nArgs:\n    create_recovery_request: Recovery event data\n    recoveries_dao: RecoveriesDAO instance\n\nReturns: None",
+        "operationId": "create_recovery_data_sci_mdas_v1_recoveries_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMDASRecoveryRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/data-sci-mdas/v1/recoveries/batch": {
+      "post": {
+        "tags": [
+          "Recoveries"
+        ],
+        "summary": "Batch Create Recoveries",
+        "description": "POST endpoint to create multiple recovery events\nNote: This endpoint is for internal application use only. External customers should use the GET endpoints instead.\n\nArgs:\n    batch_create_recoveries_request: Multiple recovery events\n    recoveries_dao: RecoveriesDAO instance\n\nReturns: None",
+        "operationId": "batch_create_recoveries_data_sci_mdas_v1_recoveries_batch_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchCreateMDASRecoveriesRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/data-sci-mdas/v1/recoveries/{recovery_id}": {
+      "put": {
+        "tags": [
+          "Recoveries"
+        ],
+        "summary": "Update Recovery",
+        "description": "PUT endpoint for updating an existing recovery event\nNote: This endpoint is for internal application use only. External customers should use the GET endpoints instead.\n\nArgs:\n    recovery_id: ID of the recovery event\n    update_recoveries_request: Recovery event data\n    recoveries_dao: RecoveriesDAO instance\n\nReturns: None",
+        "operationId": "update_recovery_data_sci_mdas_v1_recoveries__recovery_id__put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Recovery Id"
+            },
+            "name": "recovery_id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateMDASRecoveryRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Recoveries"
+        ],
+        "summary": "Delete Recovery",
+        "description": "DELETE endpoint to delete a recovery event\nNote: This endpoint is for internal application use only. External customers should use the GET endpoints instead.\n\nArgs:\n    recovery_id: ID of the recovery event\n    recoveries_dao: RecoveriesDAO instance\n\nReturns: None",
+        "operationId": "delete_recovery_data_sci_mdas_v1_recoveries__recovery_id__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Recovery Id"
+            },
+            "name": "recovery_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/data-sci-mdas/v2/activities": {
+      "get": {
+        "tags": [
+          "Activities"
+        ],
+        "summary": "Get Activities In Range For User",
+        "description": "GET endpoint to retrieve all activity events for user during a specified time range\nArgs:\n    user_id: ID of the user\n    start: Start of time range to get activity events for\n    end: End of time range to get activity events for\n    activities_dao: ActivitiesDAO instance\n\nReturns: List of recovery event data",
+        "operationId": "get_activities_in_range_for_user_data_sci_mdas_v2_activities_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Userid"
+            },
+            "name": "userId",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "title": "Start"
+            },
+            "name": "start",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "title": "End"
+            },
+            "name": "end",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/models__api__v2__activities__responses__MDASActivity"
+                  },
+                  "type": "array",
+                  "title": "Response Get Activities In Range For User Data Sci Mdas V2 Activities Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Activities"
+        ],
+        "summary": "Create Activity",
+        "description": "POST endpoint to create a new activity event\nNote: This endpoint is for internal application use only. External customers should use the GET endpoints instead.\n\nArgs:\n    create_activity_request: Activity event data\n    activities_dao: ActivitiesDAO instance\n\nReturns: None",
+        "operationId": "create_activity_data_sci_mdas_v2_activities_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/models__api__v2__activities__requests__CreateMDASActivityRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/data-sci-mdas/v2/activities/{activity_id}": {
+      "put": {
+        "tags": [
+          "Activities"
+        ],
+        "summary": "Update Activity",
+        "description": "PUT endpoint to update an activity event\nNote: This endpoint is for internal application use only. External customers should use the GET endpoints instead.\n\nArgs:\n    activity_id: ID of the activity event\n    update_activities_request: Activity event data\n    activities_dao: ActivitiesDAO instance\n\nReturns: None",
+        "operationId": "update_activity_data_sci_mdas_v2_activities__activity_id__put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Activity Id"
+            },
+            "name": "activity_id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/models__api__v2__activities__requests__UpdateMDASActivityRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Activities"
+        ],
+        "summary": "Delete Activity",
+        "description": "DELETE endpoint to delete an activity event\nNote: This endpoint is for internal application use only. External customers should use the GET endpoints instead.\n\nArgs:\n    activity_id: ID of the activity event\n    activities_dao: ActivitiesDAO instance\n\nReturns: None",
+        "operationId": "delete_activity_data_sci_mdas_v2_activities__activity_id__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Activity Id"
+            },
+            "name": "activity_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/data-sci-mdas/v2/recoveries": {
+      "get": {
+        "tags": [
+          "Recoveries"
+        ],
+        "summary": "Get Recoveries In Range For User",
+        "description": "GET endpoint to retrieve all recovery events for user during a specified time range\nArgs:\n    user_id: ID of the user\n    start: Start of time range to get recovery events for\n    end: End of time range to get recovery events for\n    recoveries_dao: RecoveriesDAO instance\n\nReturns: List of recovery event data",
+        "operationId": "get_recoveries_in_range_for_user_data_sci_mdas_v2_recoveries_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Userid"
+            },
+            "name": "userId",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "title": "Start"
+            },
+            "name": "start",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "title": "End"
+            },
+            "name": "end",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/models__api__v2__recoveries__responses__MDASRecovery"
+                  },
+                  "type": "array",
+                  "title": "Response Get Recoveries In Range For User Data Sci Mdas V2 Recoveries Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Recoveries"
+        ],
+        "summary": "Create Recovery",
+        "description": "POST endpoint to create a new recovery event\nArgs:\n    create_recovery_request: Recovery event data\n    recoveries_dao: RecoveriesDAO instance\n\nReturns: None",
+        "operationId": "create_recovery_data_sci_mdas_v2_recoveries_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMDASRecoveryRequestV2"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/data-sci-mdas/v2/recoveries/{recovery_id}": {
+      "put": {
+        "tags": [
+          "Recoveries"
+        ],
+        "summary": "Update Recovery",
+        "description": "PUT endpoint for updating an existing recovery event\nArgs:\n    recovery_id: ID of the recovery event\n    update_recoveries_request: Recovery event data\n    recoveries_dao: RecoveriesDAO instance\n\nReturns: None",
+        "operationId": "update_recovery_data_sci_mdas_v2_recoveries__recovery_id__put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Recovery Id"
+            },
+            "name": "recovery_id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateMDASRecoveryRequestV2"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Recoveries"
+        ],
+        "summary": "Delete Recovery",
+        "description": "DELETE endpoint to delete a recovery event\nArgs:\n    recovery_id: ID of the recovery event\n    recoveries_dao: RecoveriesDAO instance\n\nReturns: None",
+        "operationId": "delete_recovery_data_sci_mdas_v2_recoveries__recovery_id__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Recovery Id"
+            },
+            "name": "recovery_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/data-sci-mdas/v2/cycles": {
+      "get": {
+        "tags": [
+          "Cycles"
+        ],
+        "summary": "Get Cycles In Range For User",
+        "description": "GET endpoint to retrieve all cycle events for a user during a specified time range\nArgs:\n    user_id: ID of the user\n    start: Start of the time range to get cycle events for\n    end: End of time range to get cycle events for\n    cycles_dao: CyclesDAO instance\n\nReturns: List of cycle event data",
+        "operationId": "get_cycles_in_range_for_user_data_sci_mdas_v2_cycles_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Userid"
+            },
+            "name": "userId",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "title": "Start"
+            },
+            "name": "start",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "title": "End"
+            },
+            "name": "end",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/models__api__v2__cycles__responses__MDASCycle"
+                  },
+                  "type": "array",
+                  "title": "Response Get Cycles In Range For User Data Sci Mdas V2 Cycles Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Cycles"
+        ],
+        "summary": "Create Cycle",
+        "description": "POST endpoint to create a new cycle event\nNote: This endpoint is for internal application use only. External customers should use the GET endpoints instead.\n\nArgs:\n    create_cycle_request: Cycle event data\n    cycles_dao: CyclesDAO instance\n\nReturns: None",
+        "operationId": "create_cycle_data_sci_mdas_v2_cycles_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/models__api__v2__cycles__requests__CreateMDASCycleRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/data-sci-mdas/v2/cycles/{cycle_id}": {
+      "put": {
+        "tags": [
+          "Cycles"
+        ],
+        "summary": "Update Cycle",
+        "description": "PUT endpoint for updating an existing cycle event\nNote: This endpoint is for internal application use only. External customers should use the GET endpoints instead.\n\nArgs:\n    cycle_id: ID of the cycle event\n    update_cycles_request: Cycle event data\n    cycles_dao: CyclesDAO instance\n\nReturns: None",
+        "operationId": "update_cycle_data_sci_mdas_v2_cycles__cycle_id__put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Cycle Id"
+            },
+            "name": "cycle_id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/models__api__v2__cycles__requests__UpdateMDASCycleRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Cycles"
+        ],
+        "summary": "Delete Cycle",
+        "description": "DELETE endpoint to delete a recovery event\nNote: This endpoint is for internal application use only. External customers should use the GET endpoints instead.\n\nArgs:\n    cycle_id: ID of the cycle event\n    cycles_dao: CyclesDAO instance\n\nReturns: None",
+        "operationId": "delete_cycle_data_sci_mdas_v2_cycles__cycle_id__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Cycle Id"
+            },
+            "name": "cycle_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ActivitySource": {
+        "enum": [
+          "auto",
+          "user",
+          "team",
+          "auto+user",
+          "external"
+        ],
+        "title": "ActivitySource",
+        "description": "An enumeration."
+      },
+      "ActivityState": {
+        "enum": [
+          "pending",
+          "complete",
+          "incomplete",
+          "scheduled"
+        ],
+        "title": "ActivityState",
+        "description": "An enumeration."
+      },
+      "BatchCreateMDASActivitiesRequest": {
+        "properties": {
+          "activities": {
+            "items": {
+              "$ref": "#/components/schemas/models__api__v1__activities__requests__CreateMDASActivityRequest"
+            },
+            "type": "array",
+            "title": "Activities"
+          }
+        },
+        "type": "object",
+        "required": [
+          "activities"
+        ],
+        "title": "BatchCreateMDASActivitiesRequest",
+        "description": "All models should inherit from this. If they have special serialization concerns, they can override Config.\n\n>>> class FunTime(WhoopModel):\n...     name: str\n...     start_time: datetime.datetime\n...\n>>> d = {\n... \"name\": \"yay\",\n... \"start_time\": datetime.datetime(2020, 1, 1, hour=0, tzinfo=datetime.timezone.utc),\n... \"extraBadField\": 3\n... }\n>>> FunTime(**d).json()\n'{\"name\": \"yay\", \"start_time\": \"2020-01-01T00:00:00.000+00:00\"}'"
+      },
+      "BatchCreateMDASCyclesRequest": {
+        "properties": {
+          "cycles": {
+            "items": {
+              "$ref": "#/components/schemas/models__api__v1__cycles__requests__CreateMDASCycleRequest"
+            },
+            "type": "array",
+            "title": "Cycles"
+          }
+        },
+        "type": "object",
+        "required": [
+          "cycles"
+        ],
+        "title": "BatchCreateMDASCyclesRequest",
+        "description": "All models should inherit from this. If they have special serialization concerns, they can override Config.\n\n>>> class FunTime(WhoopModel):\n...     name: str\n...     start_time: datetime.datetime\n...\n>>> d = {\n... \"name\": \"yay\",\n... \"start_time\": datetime.datetime(2020, 1, 1, hour=0, tzinfo=datetime.timezone.utc),\n... \"extraBadField\": 3\n... }\n>>> FunTime(**d).json()\n'{\"name\": \"yay\", \"start_time\": \"2020-01-01T00:00:00.000+00:00\"}'"
+      },
+      "BatchCreateMDASRecoveriesRequest": {
+        "properties": {
+          "recoveries": {
+            "items": {
+              "$ref": "#/components/schemas/CreateMDASRecoveryRequest"
+            },
+            "type": "array",
+            "title": "Recoveries"
+          }
+        },
+        "type": "object",
+        "required": [
+          "recoveries"
+        ],
+        "title": "BatchCreateMDASRecoveriesRequest",
+        "description": "All models should inherit from this. If they have special serialization concerns, they can override Config.\n\n>>> class FunTime(WhoopModel):\n...     name: str\n...     start_time: datetime.datetime\n...\n>>> d = {\n... \"name\": \"yay\",\n... \"start_time\": datetime.datetime(2020, 1, 1, hour=0, tzinfo=datetime.timezone.utc),\n... \"extraBadField\": 3\n... }\n>>> FunTime(**d).json()\n'{\"name\": \"yay\", \"start_time\": \"2020-01-01T00:00:00.000+00:00\"}'"
+      },
+      "BoundType": {
+        "enum": [
+          "CLOSED",
+          "OPEN"
+        ],
+        "title": "BoundType",
+        "description": "An enumeration."
+      },
+      "CreateMDASRecoveryRequest": {
+        "properties": {
+          "quality_duration": {
+            "type": "integer",
+            "title": "Quality Duration"
+          },
+          "sleep_score": {
+            "type": "integer",
+            "title": "Sleep Score"
+          },
+          "is_nap": {
+            "type": "boolean",
+            "title": "Is Nap"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date"
+          },
+          "user_id": {
+            "type": "integer",
+            "title": "User Id"
+          },
+          "sleep_id": {
+            "type": "integer",
+            "title": "Sleep Id"
+          },
+          "cycle_id": {
+            "type": "integer",
+            "title": "Cycle Id"
+          },
+          "recovery_score": {
+            "type": "integer",
+            "title": "Recovery Score"
+          },
+          "resting_heart_rate": {
+            "type": "integer",
+            "title": "Resting Heart Rate"
+          },
+          "hrv_rmssd": {
+            "type": "number",
+            "title": "Hrv Rmssd"
+          },
+          "activity_state": {
+            "$ref": "#/components/schemas/ActivityState"
+          },
+          "is_calibrating": {
+            "type": "boolean",
+            "title": "Is Calibrating"
+          },
+          "prod_covid": {
+            "type": "number",
+            "title": "Prod Covid"
+          },
+          "hr_baseline": {
+            "type": "number",
+            "title": "Hr Baseline"
+          },
+          "skin_temp_celsius": {
+            "type": "number",
+            "title": "Skin Temp Celsius"
+          },
+          "spo2": {
+            "type": "number",
+            "title": "Spo2"
+          },
+          "algo_version": {
+            "type": "string",
+            "title": "Algo Version"
+          },
+          "rhr_component": {
+            "type": "number",
+            "title": "Rhr Component"
+          },
+          "hrv_component": {
+            "type": "number",
+            "title": "Hrv Component"
+          },
+          "is_normal": {
+            "type": "boolean",
+            "title": "Is Normal"
+          },
+          "history_size": {
+            "type": "number",
+            "title": "History Size"
+          },
+          "recovery_rate": {
+            "type": "number",
+            "title": "Recovery Rate"
+          },
+          "kilojoules": {
+            "type": "number",
+            "title": "Kilojoules"
+          },
+          "during": {
+            "$ref": "#/components/schemas/DateTimeTzRange"
+          },
+          "timezone_offset": {
+            "type": "string",
+            "title": "Timezone Offset"
+          },
+          "timezone": {
+            "type": "string",
+            "title": "Timezone"
+          },
+          "survey_response_id": {
+            "type": "integer",
+            "title": "Survey Response Id"
+          },
+          "percent_recorded": {
+            "type": "number",
+            "title": "Percent Recorded"
+          },
+          "is_responded": {
+            "type": "boolean",
+            "title": "Is Responded"
+          },
+          "activity_source": {
+            "$ref": "#/components/schemas/ActivitySource"
+          },
+          "score": {
+            "type": "integer",
+            "title": "Score"
+          },
+          "latency": {
+            "type": "integer",
+            "title": "Latency"
+          },
+          "is_significant": {
+            "type": "boolean",
+            "title": "Is Significant"
+          },
+          "debt_pre": {
+            "type": "number",
+            "title": "Debt Pre"
+          },
+          "debt_post": {
+            "type": "number",
+            "title": "Debt Post"
+          },
+          "need_from_strain": {
+            "type": "number",
+            "title": "Need From Strain"
+          },
+          "sleep_need": {
+            "type": "number",
+            "title": "Sleep Need"
+          },
+          "habitual_sleep_need": {
+            "type": "number",
+            "title": "Habitual Sleep Need"
+          },
+          "disturbances": {
+            "type": "number",
+            "title": "Disturbances"
+          },
+          "time_in_bed": {
+            "type": "number",
+            "title": "Time In Bed"
+          },
+          "light_sleep_duration": {
+            "type": "integer",
+            "title": "Light Sleep Duration"
+          },
+          "slow_wave_sleep_duration": {
+            "type": "integer",
+            "title": "Slow Wave Sleep Duration"
+          },
+          "rem_sleep_duration": {
+            "type": "integer",
+            "title": "Rem Sleep Duration"
+          },
+          "cycles_count": {
+            "type": "integer",
+            "title": "Cycles Count"
+          },
+          "wake_duration": {
+            "type": "integer",
+            "title": "Wake Duration"
+          },
+          "arousal_time": {
+            "type": "number",
+            "title": "Arousal Time"
+          },
+          "no_data_duration": {
+            "type": "integer",
+            "title": "No Data Duration"
+          },
+          "in_sleep_efficiency": {
+            "type": "number",
+            "title": "In Sleep Efficiency"
+          },
+          "credit_from_naps": {
+            "type": "number",
+            "title": "Credit From Naps"
+          },
+          "respiratory_rate": {
+            "type": "number",
+            "title": "Respiratory Rate"
+          },
+          "sleep_consistency": {
+            "type": "number",
+            "title": "Sleep Consistency"
+          },
+          "projected_score": {
+            "type": "number",
+            "title": "Projected Score"
+          },
+          "projected_sleep": {
+            "type": "number",
+            "title": "Projected Sleep"
+          },
+          "optimal_sleep_times": {
+            "$ref": "#/components/schemas/DateTimeTzRange"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "recovery_id": {
+            "type": "integer",
+            "title": "Recovery Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "date",
+          "user_id",
+          "sleep_id",
+          "during",
+          "score",
+          "created_at",
+          "updated_at",
+          "recovery_id"
+        ],
+        "title": "CreateMDASRecoveryRequest",
+        "description": "All models should inherit from this. If they have special serialization concerns, they can override Config.\n\n>>> class FunTime(WhoopModel):\n...     name: str\n...     start_time: datetime.datetime\n...\n>>> d = {\n... \"name\": \"yay\",\n... \"start_time\": datetime.datetime(2020, 1, 1, hour=0, tzinfo=datetime.timezone.utc),\n... \"extraBadField\": 3\n... }\n>>> FunTime(**d).json()\n'{\"name\": \"yay\", \"start_time\": \"2020-01-01T00:00:00.000+00:00\"}'"
+      },
+      "CreateMDASRecoveryRequestV2": {
+        "properties": {
+          "user_id": {
+            "type": "integer",
+            "title": "User Id"
+          },
+          "version": {
+            "type": "integer",
+            "title": "Version"
+          },
+          "cycle_id": {
+            "type": "integer",
+            "title": "Cycle Id"
+          },
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "start_timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start Timestamp"
+          },
+          "end_timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End Timestamp"
+          },
+          "score": {
+            "type": "integer",
+            "title": "Score"
+          },
+          "is_normal": {
+            "type": "boolean",
+            "title": "Is Normal"
+          },
+          "quality_duration": {
+            "type": "integer",
+            "title": "Quality Duration"
+          },
+          "latency": {
+            "type": "integer",
+            "title": "Latency"
+          },
+          "is_significant": {
+            "type": "boolean",
+            "title": "Is Significant"
+          },
+          "debt_pre": {
+            "type": "number",
+            "title": "Debt Pre"
+          },
+          "debt_post": {
+            "type": "number",
+            "title": "Debt Post"
+          },
+          "need_from_strain": {
+            "type": "number",
+            "title": "Need From Strain"
+          },
+          "sleep_need": {
+            "type": "number",
+            "title": "Sleep Need"
+          },
+          "habitual_sleep_need": {
+            "type": "number",
+            "title": "Habitual Sleep Need"
+          },
+          "disturbances": {
+            "type": "integer",
+            "title": "Disturbances"
+          },
+          "time_in_bed": {
+            "type": "number",
+            "title": "Time In Bed"
+          },
+          "light_sleep_duration": {
+            "type": "integer",
+            "title": "Light Sleep Duration"
+          },
+          "slow_wave_sleep_duration": {
+            "type": "integer",
+            "title": "Slow Wave Sleep Duration"
+          },
+          "rem_sleep_duration": {
+            "type": "integer",
+            "title": "Rem Sleep Duration"
+          },
+          "cycles_count": {
+            "type": "integer",
+            "title": "Cycles Count"
+          },
+          "wake_duration": {
+            "type": "integer",
+            "title": "Wake Duration"
+          },
+          "arousal_time": {
+            "type": "number",
+            "title": "Arousal Time"
+          },
+          "no_data_duration": {
+            "type": "integer",
+            "title": "No Data Duration"
+          },
+          "in_sleep_efficiency": {
+            "type": "number",
+            "title": "In Sleep Efficiency"
+          },
+          "credit_from_naps": {
+            "type": "number",
+            "title": "Credit From Naps"
+          },
+          "respiratory_rate": {
+            "type": "number",
+            "title": "Respiratory Rate"
+          },
+          "algo_version": {
+            "type": "string",
+            "title": "Algo Version"
+          },
+          "projected_score": {
+            "type": "number",
+            "title": "Projected Score"
+          },
+          "projected_sleep": {
+            "type": "number",
+            "title": "Projected Sleep"
+          },
+          "sleep_consistency": {
+            "type": "number",
+            "title": "Sleep Consistency"
+          },
+          "skin_temp_celsius": {
+            "type": "number",
+            "title": "Skin Temp Celsius"
+          },
+          "spo2": {
+            "type": "number",
+            "title": "Spo2"
+          },
+          "total_wake_events": {
+            "type": "integer",
+            "title": "Total Wake Events"
+          },
+          "optimal_sleep_time_start": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Optimal Sleep Time Start"
+          },
+          "optimal_sleep_time_end": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Optimal Sleep Time End"
+          },
+          "recovery_score": {
+            "type": "integer",
+            "title": "Recovery Score"
+          },
+          "resting_heart_rate": {
+            "type": "integer",
+            "title": "Resting Heart Rate"
+          },
+          "hrv_rmssd": {
+            "type": "number",
+            "title": "Hrv Rmssd"
+          },
+          "history_size": {
+            "type": "number",
+            "title": "History Size"
+          },
+          "is_calibrating": {
+            "type": "boolean",
+            "title": "Is Calibrating"
+          },
+          "rhr_component": {
+            "type": "number",
+            "title": "Rhr Component"
+          },
+          "hrv_component": {
+            "type": "number",
+            "title": "Hrv Component"
+          },
+          "recovery_rate": {
+            "type": "number",
+            "title": "Recovery Rate"
+          },
+          "hr_baseline": {
+            "type": "number",
+            "title": "Hr Baseline"
+          },
+          "score_state": {
+            "type": "string",
+            "title": "Score State"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "recovery_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Recovery Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_id",
+          "start_timestamp",
+          "end_timestamp",
+          "score",
+          "created_at",
+          "updated_at",
+          "recovery_id"
+        ],
+        "title": "CreateMDASRecoveryRequestV2",
+        "description": "All models should inherit from this. If they have special serialization concerns, they can override Config.\n\n>>> class FunTime(WhoopModel):\n...     name: str\n...     start_time: datetime.datetime\n...\n>>> d = {\n... \"name\": \"yay\",\n... \"start_time\": datetime.datetime(2020, 1, 1, hour=0, tzinfo=datetime.timezone.utc),\n... \"extraBadField\": 3\n... }\n>>> FunTime(**d).json()\n'{\"name\": \"yay\", \"start_time\": \"2020-01-01T00:00:00.000+00:00\"}'"
+      },
+      "CycleState": {
+        "enum": [
+          "pending",
+          "complete",
+          "incomplete",
+          "scheduled"
+        ],
+        "title": "CycleState",
+        "description": "An enumeration."
+      },
+      "DateRange": {
+        "properties": {
+          "lower": {
+            "type": "string",
+            "format": "date",
+            "title": "Lower"
+          },
+          "upper": {
+            "type": "string",
+            "format": "date",
+            "title": "Upper"
+          },
+          "lower_bound_type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BoundType"
+              }
+            ],
+            "default": "CLOSED"
+          },
+          "upper_bound_type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BoundType"
+              }
+            ],
+            "default": "OPEN"
+          }
+        },
+        "type": "object",
+        "title": "DateRange",
+        "description": "This exists and is weird because we have APIs that return ranges as semantic strings, which\nwork with Postgres range types.\n\nFor instance, the `during` field in the cycle model is given as\n\n\"['2020-08-17T03:42:01.160Z','2020-08-17T12:16:29.582Z')\"\n\nThis model makes it so that you can deserialize fields of this type from those strings. When\nthis class is serialized, the strings will be the same.\n\nI would made this Generic, but Pydantic doesn't work with Generics + Python < 3.7,\nso this base class has upper and lower bounds of type `Any`. Subclasses can override\nthe `upper` and `lower` fields with more specific types, but the elements will be\ndeserialized using the WhoopModel.Config by default."
+      },
+      "DateTimeTzRange": {
+        "properties": {
+          "lower": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Lower"
+          },
+          "upper": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Upper"
+          },
+          "lower_bound_type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BoundType"
+              }
+            ],
+            "default": "CLOSED"
+          },
+          "upper_bound_type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BoundType"
+              }
+            ],
+            "default": "OPEN"
+          }
+        },
+        "type": "object",
+        "title": "DateTimeTzRange",
+        "description": "This exists and is weird because we have APIs that return ranges as semantic strings, which\nwork with Postgres range types.\n\nFor instance, the `during` field in the cycle model is given as\n\n\"['2020-08-17T03:42:01.160Z','2020-08-17T12:16:29.582Z')\"\n\nThis model makes it so that you can deserialize fields of this type from those strings. When\nthis class is serialized, the strings will be the same.\n\nI would made this Generic, but Pydantic doesn't work with Generics + Python < 3.7,\nso this base class has upper and lower bounds of type `Any`. Subclasses can override\nthe `upper` and `lower` fields with more specific types, but the elements will be\ndeserialized using the WhoopModel.Config by default."
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "HealthCheck": {
+        "properties": {
+          "alive": {
+            "type": "boolean",
+            "title": "Alive"
+          }
+        },
+        "type": "object",
+        "required": [
+          "alive"
+        ],
+        "title": "HealthCheck"
+      },
+      "ScoreState": {
+        "enum": [
+          "pending",
+          "complete",
+          "incomplete"
+        ],
+        "title": "ScoreState",
+        "description": "An enumeration."
+      },
+      "ScoreType": {
+        "type": "string",
+        "enum": [
+          "RECOVERY",
+          "WEIGHTLIFTING_MSK",
+          "CARDIO",
+          "SLEEP"
+        ],
+        "title": "ScoreType",
+        "description": "An enumeration."
+      },
+      "UpdateMDASRecoveryRequest": {
+        "properties": {
+          "quality_duration": {
+            "type": "integer",
+            "title": "Quality Duration"
+          },
+          "sleep_score": {
+            "type": "integer",
+            "title": "Sleep Score"
+          },
+          "is_nap": {
+            "type": "boolean",
+            "title": "Is Nap"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date"
+          },
+          "user_id": {
+            "type": "integer",
+            "title": "User Id"
+          },
+          "sleep_id": {
+            "type": "integer",
+            "title": "Sleep Id"
+          },
+          "cycle_id": {
+            "type": "integer",
+            "title": "Cycle Id"
+          },
+          "recovery_score": {
+            "type": "integer",
+            "title": "Recovery Score"
+          },
+          "resting_heart_rate": {
+            "type": "integer",
+            "title": "Resting Heart Rate"
+          },
+          "hrv_rmssd": {
+            "type": "number",
+            "title": "Hrv Rmssd"
+          },
+          "activity_state": {
+            "$ref": "#/components/schemas/ActivityState"
+          },
+          "is_calibrating": {
+            "type": "boolean",
+            "title": "Is Calibrating"
+          },
+          "prod_covid": {
+            "type": "number",
+            "title": "Prod Covid"
+          },
+          "hr_baseline": {
+            "type": "number",
+            "title": "Hr Baseline"
+          },
+          "skin_temp_celsius": {
+            "type": "number",
+            "title": "Skin Temp Celsius"
+          },
+          "spo2": {
+            "type": "number",
+            "title": "Spo2"
+          },
+          "algo_version": {
+            "type": "string",
+            "title": "Algo Version"
+          },
+          "rhr_component": {
+            "type": "number",
+            "title": "Rhr Component"
+          },
+          "hrv_component": {
+            "type": "number",
+            "title": "Hrv Component"
+          },
+          "is_normal": {
+            "type": "boolean",
+            "title": "Is Normal"
+          },
+          "history_size": {
+            "type": "number",
+            "title": "History Size"
+          },
+          "recovery_rate": {
+            "type": "number",
+            "title": "Recovery Rate"
+          },
+          "kilojoules": {
+            "type": "number",
+            "title": "Kilojoules"
+          },
+          "during": {
+            "$ref": "#/components/schemas/DateTimeTzRange"
+          },
+          "timezone_offset": {
+            "type": "string",
+            "title": "Timezone Offset"
+          },
+          "timezone": {
+            "type": "string",
+            "title": "Timezone"
+          },
+          "survey_response_id": {
+            "type": "integer",
+            "title": "Survey Response Id"
+          },
+          "percent_recorded": {
+            "type": "number",
+            "title": "Percent Recorded"
+          },
+          "is_responded": {
+            "type": "boolean",
+            "title": "Is Responded"
+          },
+          "activity_source": {
+            "$ref": "#/components/schemas/ActivitySource"
+          },
+          "score": {
+            "type": "integer",
+            "title": "Score"
+          },
+          "latency": {
+            "type": "integer",
+            "title": "Latency"
+          },
+          "is_significant": {
+            "type": "boolean",
+            "title": "Is Significant"
+          },
+          "debt_pre": {
+            "type": "number",
+            "title": "Debt Pre"
+          },
+          "debt_post": {
+            "type": "number",
+            "title": "Debt Post"
+          },
+          "need_from_strain": {
+            "type": "number",
+            "title": "Need From Strain"
+          },
+          "sleep_need": {
+            "type": "number",
+            "title": "Sleep Need"
+          },
+          "habitual_sleep_need": {
+            "type": "number",
+            "title": "Habitual Sleep Need"
+          },
+          "disturbances": {
+            "type": "number",
+            "title": "Disturbances"
+          },
+          "time_in_bed": {
+            "type": "number",
+            "title": "Time In Bed"
+          },
+          "light_sleep_duration": {
+            "type": "integer",
+            "title": "Light Sleep Duration"
+          },
+          "slow_wave_sleep_duration": {
+            "type": "integer",
+            "title": "Slow Wave Sleep Duration"
+          },
+          "rem_sleep_duration": {
+            "type": "integer",
+            "title": "Rem Sleep Duration"
+          },
+          "cycles_count": {
+            "type": "integer",
+            "title": "Cycles Count"
+          },
+          "wake_duration": {
+            "type": "integer",
+            "title": "Wake Duration"
+          },
+          "arousal_time": {
+            "type": "number",
+            "title": "Arousal Time"
+          },
+          "no_data_duration": {
+            "type": "integer",
+            "title": "No Data Duration"
+          },
+          "in_sleep_efficiency": {
+            "type": "number",
+            "title": "In Sleep Efficiency"
+          },
+          "credit_from_naps": {
+            "type": "number",
+            "title": "Credit From Naps"
+          },
+          "respiratory_rate": {
+            "type": "number",
+            "title": "Respiratory Rate"
+          },
+          "sleep_consistency": {
+            "type": "number",
+            "title": "Sleep Consistency"
+          },
+          "projected_score": {
+            "type": "number",
+            "title": "Projected Score"
+          },
+          "projected_sleep": {
+            "type": "number",
+            "title": "Projected Sleep"
+          },
+          "optimal_sleep_times": {
+            "$ref": "#/components/schemas/DateTimeTzRange"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "date",
+          "user_id",
+          "sleep_id",
+          "during",
+          "score",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "UpdateMDASRecoveryRequest",
+        "description": "All models should inherit from this. If they have special serialization concerns, they can override Config.\n\n>>> class FunTime(WhoopModel):\n...     name: str\n...     start_time: datetime.datetime\n...\n>>> d = {\n... \"name\": \"yay\",\n... \"start_time\": datetime.datetime(2020, 1, 1, hour=0, tzinfo=datetime.timezone.utc),\n... \"extraBadField\": 3\n... }\n>>> FunTime(**d).json()\n'{\"name\": \"yay\", \"start_time\": \"2020-01-01T00:00:00.000+00:00\"}'"
+      },
+      "UpdateMDASRecoveryRequestV2": {
+        "properties": {
+          "user_id": {
+            "type": "integer",
+            "title": "User Id"
+          },
+          "version": {
+            "type": "integer",
+            "title": "Version"
+          },
+          "cycle_id": {
+            "type": "integer",
+            "title": "Cycle Id"
+          },
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "start_timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start Timestamp"
+          },
+          "end_timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End Timestamp"
+          },
+          "score": {
+            "type": "integer",
+            "title": "Score"
+          },
+          "is_normal": {
+            "type": "boolean",
+            "title": "Is Normal"
+          },
+          "quality_duration": {
+            "type": "integer",
+            "title": "Quality Duration"
+          },
+          "latency": {
+            "type": "integer",
+            "title": "Latency"
+          },
+          "is_significant": {
+            "type": "boolean",
+            "title": "Is Significant"
+          },
+          "debt_pre": {
+            "type": "number",
+            "title": "Debt Pre"
+          },
+          "debt_post": {
+            "type": "number",
+            "title": "Debt Post"
+          },
+          "need_from_strain": {
+            "type": "number",
+            "title": "Need From Strain"
+          },
+          "sleep_need": {
+            "type": "number",
+            "title": "Sleep Need"
+          },
+          "habitual_sleep_need": {
+            "type": "number",
+            "title": "Habitual Sleep Need"
+          },
+          "disturbances": {
+            "type": "integer",
+            "title": "Disturbances"
+          },
+          "time_in_bed": {
+            "type": "number",
+            "title": "Time In Bed"
+          },
+          "light_sleep_duration": {
+            "type": "integer",
+            "title": "Light Sleep Duration"
+          },
+          "slow_wave_sleep_duration": {
+            "type": "integer",
+            "title": "Slow Wave Sleep Duration"
+          },
+          "rem_sleep_duration": {
+            "type": "integer",
+            "title": "Rem Sleep Duration"
+          },
+          "cycles_count": {
+            "type": "integer",
+            "title": "Cycles Count"
+          },
+          "wake_duration": {
+            "type": "integer",
+            "title": "Wake Duration"
+          },
+          "arousal_time": {
+            "type": "number",
+            "title": "Arousal Time"
+          },
+          "no_data_duration": {
+            "type": "integer",
+            "title": "No Data Duration"
+          },
+          "in_sleep_efficiency": {
+            "type": "number",
+            "title": "In Sleep Efficiency"
+          },
+          "credit_from_naps": {
+            "type": "number",
+            "title": "Credit From Naps"
+          },
+          "respiratory_rate": {
+            "type": "number",
+            "title": "Respiratory Rate"
+          },
+          "algo_version": {
+            "type": "string",
+            "title": "Algo Version"
+          },
+          "projected_score": {
+            "type": "number",
+            "title": "Projected Score"
+          },
+          "projected_sleep": {
+            "type": "number",
+            "title": "Projected Sleep"
+          },
+          "sleep_consistency": {
+            "type": "number",
+            "title": "Sleep Consistency"
+          },
+          "skin_temp_celsius": {
+            "type": "number",
+            "title": "Skin Temp Celsius"
+          },
+          "spo2": {
+            "type": "number",
+            "title": "Spo2"
+          },
+          "total_wake_events": {
+            "type": "integer",
+            "title": "Total Wake Events"
+          },
+          "optimal_sleep_time_start": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Optimal Sleep Time Start"
+          },
+          "optimal_sleep_time_end": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Optimal Sleep Time End"
+          },
+          "recovery_score": {
+            "type": "integer",
+            "title": "Recovery Score"
+          },
+          "resting_heart_rate": {
+            "type": "integer",
+            "title": "Resting Heart Rate"
+          },
+          "hrv_rmssd": {
+            "type": "number",
+            "title": "Hrv Rmssd"
+          },
+          "history_size": {
+            "type": "number",
+            "title": "History Size"
+          },
+          "is_calibrating": {
+            "type": "boolean",
+            "title": "Is Calibrating"
+          },
+          "rhr_component": {
+            "type": "number",
+            "title": "Rhr Component"
+          },
+          "hrv_component": {
+            "type": "number",
+            "title": "Hrv Component"
+          },
+          "recovery_rate": {
+            "type": "number",
+            "title": "Recovery Rate"
+          },
+          "hr_baseline": {
+            "type": "number",
+            "title": "Hr Baseline"
+          },
+          "score_state": {
+            "type": "string",
+            "title": "Score State"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_id",
+          "start_timestamp",
+          "end_timestamp",
+          "score",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "UpdateMDASRecoveryRequestV2",
+        "description": "All models should inherit from this. If they have special serialization concerns, they can override Config.\n\n>>> class FunTime(WhoopModel):\n...     name: str\n...     start_time: datetime.datetime\n...\n>>> d = {\n... \"name\": \"yay\",\n... \"start_time\": datetime.datetime(2020, 1, 1, hour=0, tzinfo=datetime.timezone.utc),\n... \"extraBadField\": 3\n... }\n>>> FunTime(**d).json()\n'{\"name\": \"yay\", \"start_time\": \"2020-01-01T00:00:00.000+00:00\"}'"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "models__api__v1__activities__requests__CreateMDASActivityRequest": {
+        "properties": {
+          "activity_v1_id": {
+            "type": "integer",
+            "title": "Activity V1 Id"
+          },
+          "version": {
+            "type": "integer",
+            "title": "Version"
+          },
+          "cycle_id": {
+            "type": "integer",
+            "title": "Cycle Id"
+          },
+          "score_type": {
+            "$ref": "#/components/schemas/ScoreType"
+          },
+          "user_id": {
+            "type": "integer",
+            "title": "User Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "timezone": {
+            "type": "string",
+            "title": "Timezone"
+          },
+          "timezone_offset": {
+            "type": "string",
+            "title": "Timezone Offset"
+          },
+          "activity_source": {
+            "$ref": "#/components/schemas/ActivitySource"
+          },
+          "score_state": {
+            "$ref": "#/components/schemas/ScoreState"
+          },
+          "activity_type": {
+            "type": "string",
+            "title": "Activity Type"
+          },
+          "source_id": {
+            "type": "string",
+            "title": "Source Id"
+          },
+          "gps_enabled": {
+            "type": "boolean",
+            "title": "Gps Enabled"
+          },
+          "during": {
+            "$ref": "#/components/schemas/DateTimeTzRange"
+          },
+          "activity_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Activity Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "activity_v1_id",
+          "version",
+          "cycle_id",
+          "score_type",
+          "user_id",
+          "created_at",
+          "updated_at",
+          "score_state",
+          "activity_type",
+          "during",
+          "activity_id"
+        ],
+        "title": "CreateMDASActivityRequest",
+        "description": "All models should inherit from this. If they have special serialization concerns, they can override Config.\n\n>>> class FunTime(WhoopModel):\n...     name: str\n...     start_time: datetime.datetime\n...\n>>> d = {\n... \"name\": \"yay\",\n... \"start_time\": datetime.datetime(2020, 1, 1, hour=0, tzinfo=datetime.timezone.utc),\n... \"extraBadField\": 3\n... }\n>>> FunTime(**d).json()\n'{\"name\": \"yay\", \"start_time\": \"2020-01-01T00:00:00.000+00:00\"}'"
+      },
+      "models__api__v1__activities__requests__UpdateMDASActivityRequest": {
+        "properties": {
+          "activity_v1_id": {
+            "type": "integer",
+            "title": "Activity V1 Id"
+          },
+          "version": {
+            "type": "integer",
+            "title": "Version"
+          },
+          "cycle_id": {
+            "type": "integer",
+            "title": "Cycle Id"
+          },
+          "score_type": {
+            "$ref": "#/components/schemas/ScoreType"
+          },
+          "user_id": {
+            "type": "integer",
+            "title": "User Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "timezone": {
+            "type": "string",
+            "title": "Timezone"
+          },
+          "timezone_offset": {
+            "type": "string",
+            "title": "Timezone Offset"
+          },
+          "activity_source": {
+            "$ref": "#/components/schemas/ActivitySource"
+          },
+          "score_state": {
+            "$ref": "#/components/schemas/ScoreState"
+          },
+          "activity_type": {
+            "type": "string",
+            "title": "Activity Type"
+          },
+          "source_id": {
+            "type": "string",
+            "title": "Source Id"
+          },
+          "gps_enabled": {
+            "type": "boolean",
+            "title": "Gps Enabled"
+          },
+          "during": {
+            "$ref": "#/components/schemas/DateTimeTzRange"
+          }
+        },
+        "type": "object",
+        "required": [
+          "activity_v1_id",
+          "version",
+          "cycle_id",
+          "score_type",
+          "user_id",
+          "created_at",
+          "updated_at",
+          "score_state",
+          "activity_type",
+          "during"
+        ],
+        "title": "UpdateMDASActivityRequest",
+        "description": "All models should inherit from this. If they have special serialization concerns, they can override Config.\n\n>>> class FunTime(WhoopModel):\n...     name: str\n...     start_time: datetime.datetime\n...\n>>> d = {\n... \"name\": \"yay\",\n... \"start_time\": datetime.datetime(2020, 1, 1, hour=0, tzinfo=datetime.timezone.utc),\n... \"extraBadField\": 3\n... }\n>>> FunTime(**d).json()\n'{\"name\": \"yay\", \"start_time\": \"2020-01-01T00:00:00.000+00:00\"}'"
+      },
+      "models__api__v1__activities__responses__MDASActivity": {
+        "properties": {
+          "activity_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Activity Id"
+          },
+          "activity_v1_id": {
+            "type": "integer",
+            "title": "Activity V1 Id"
+          },
+          "version": {
+            "type": "integer",
+            "title": "Version"
+          },
+          "cycle_id": {
+            "type": "integer",
+            "title": "Cycle Id"
+          },
+          "score_type": {
+            "$ref": "#/components/schemas/ScoreType"
+          },
+          "user_id": {
+            "type": "integer",
+            "title": "User Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "timezone": {
+            "type": "string",
+            "title": "Timezone"
+          },
+          "timezone_offset": {
+            "type": "string",
+            "title": "Timezone Offset"
+          },
+          "activity_source": {
+            "$ref": "#/components/schemas/ActivitySource"
+          },
+          "score_state": {
+            "$ref": "#/components/schemas/ScoreState"
+          },
+          "activity_type": {
+            "type": "string",
+            "title": "Activity Type"
+          },
+          "source_id": {
+            "type": "string",
+            "title": "Source Id"
+          },
+          "gps_enabled": {
+            "type": "boolean",
+            "title": "Gps Enabled"
+          },
+          "during": {
+            "$ref": "#/components/schemas/DateTimeTzRange"
+          }
+        },
+        "type": "object",
+        "required": [
+          "activity_id",
+          "activity_v1_id",
+          "version",
+          "cycle_id",
+          "score_type",
+          "user_id",
+          "created_at",
+          "updated_at",
+          "score_state",
+          "activity_type",
+          "during"
+        ],
+        "title": "MDASActivity",
+        "description": "All models should inherit from this. If they have special serialization concerns, they can override Config.\n\n>>> class FunTime(WhoopModel):\n...     name: str\n...     start_time: datetime.datetime\n...\n>>> d = {\n... \"name\": \"yay\",\n... \"start_time\": datetime.datetime(2020, 1, 1, hour=0, tzinfo=datetime.timezone.utc),\n... \"extraBadField\": 3\n... }\n>>> FunTime(**d).json()\n'{\"name\": \"yay\", \"start_time\": \"2020-01-01T00:00:00.000+00:00\"}'"
+      },
+      "models__api__v1__cycles__requests__CreateMDASCycleRequest": {
+        "properties": {
+          "scaled_strain": {
+            "type": "number",
+            "title": "Scaled Strain"
+          },
+          "during": {
+            "$ref": "#/components/schemas/DateTimeTzRange"
+          },
+          "predicted_end": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Predicted End"
+          },
+          "timezone_offset": {
+            "type": "string",
+            "title": "Timezone Offset"
+          },
+          "days": {
+            "$ref": "#/components/schemas/DateRange"
+          },
+          "data_state": {
+            "$ref": "#/components/schemas/CycleState"
+          },
+          "day_strain": {
+            "type": "number",
+            "title": "Day Strain"
+          },
+          "day_kilojoules": {
+            "type": "number",
+            "title": "Day Kilojoules"
+          },
+          "day_avg_heart_rate": {
+            "type": "integer",
+            "title": "Day Avg Heart Rate"
+          },
+          "day_max_heart_rate": {
+            "type": "integer",
+            "title": "Day Max Heart Rate"
+          },
+          "user_id": {
+            "type": "integer",
+            "title": "User Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "cycle_id": {
+            "type": "integer",
+            "title": "Cycle Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "during",
+          "timezone_offset",
+          "days",
+          "data_state",
+          "user_id",
+          "created_at",
+          "updated_at",
+          "cycle_id"
+        ],
+        "title": "CreateMDASCycleRequest",
+        "description": "All models should inherit from this. If they have special serialization concerns, they can override Config.\n\n>>> class FunTime(WhoopModel):\n...     name: str\n...     start_time: datetime.datetime\n...\n>>> d = {\n... \"name\": \"yay\",\n... \"start_time\": datetime.datetime(2020, 1, 1, hour=0, tzinfo=datetime.timezone.utc),\n... \"extraBadField\": 3\n... }\n>>> FunTime(**d).json()\n'{\"name\": \"yay\", \"start_time\": \"2020-01-01T00:00:00.000+00:00\"}'"
+      },
+      "models__api__v1__cycles__requests__UpdateMDASCycleRequest": {
+        "properties": {
+          "scaled_strain": {
+            "type": "number",
+            "title": "Scaled Strain"
+          },
+          "during": {
+            "$ref": "#/components/schemas/DateTimeTzRange"
+          },
+          "predicted_end": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Predicted End"
+          },
+          "timezone_offset": {
+            "type": "string",
+            "title": "Timezone Offset"
+          },
+          "days": {
+            "$ref": "#/components/schemas/DateRange"
+          },
+          "data_state": {
+            "$ref": "#/components/schemas/CycleState"
+          },
+          "day_strain": {
+            "type": "number",
+            "title": "Day Strain"
+          },
+          "day_kilojoules": {
+            "type": "number",
+            "title": "Day Kilojoules"
+          },
+          "day_avg_heart_rate": {
+            "type": "integer",
+            "title": "Day Avg Heart Rate"
+          },
+          "day_max_heart_rate": {
+            "type": "integer",
+            "title": "Day Max Heart Rate"
+          },
+          "user_id": {
+            "type": "integer",
+            "title": "User Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "during",
+          "timezone_offset",
+          "days",
+          "data_state",
+          "user_id",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "UpdateMDASCycleRequest",
+        "description": "All models should inherit from this. If they have special serialization concerns, they can override Config.\n\n>>> class FunTime(WhoopModel):\n...     name: str\n...     start_time: datetime.datetime\n...\n>>> d = {\n... \"name\": \"yay\",\n... \"start_time\": datetime.datetime(2020, 1, 1, hour=0, tzinfo=datetime.timezone.utc),\n... \"extraBadField\": 3\n... }\n>>> FunTime(**d).json()\n'{\"name\": \"yay\", \"start_time\": \"2020-01-01T00:00:00.000+00:00\"}'"
+      },
+      "models__api__v1__cycles__responses__MDASCycle": {
+        "properties": {
+          "cycle_id": {
+            "type": "integer",
+            "title": "Cycle Id"
+          },
+          "scaled_strain": {
+            "type": "number",
+            "title": "Scaled Strain"
+          },
+          "during": {
+            "$ref": "#/components/schemas/DateTimeTzRange"
+          },
+          "predicted_end": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Predicted End"
+          },
+          "timezone_offset": {
+            "type": "string",
+            "title": "Timezone Offset"
+          },
+          "days": {
+            "$ref": "#/components/schemas/DateRange"
+          },
+          "data_state": {
+            "$ref": "#/components/schemas/CycleState"
+          },
+          "day_strain": {
+            "type": "number",
+            "title": "Day Strain"
+          },
+          "day_kilojoules": {
+            "type": "number",
+            "title": "Day Kilojoules"
+          },
+          "day_avg_heart_rate": {
+            "type": "integer",
+            "title": "Day Avg Heart Rate"
+          },
+          "day_max_heart_rate": {
+            "type": "integer",
+            "title": "Day Max Heart Rate"
+          },
+          "user_id": {
+            "type": "integer",
+            "title": "User Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "cycle_id",
+          "during",
+          "timezone_offset",
+          "days",
+          "data_state",
+          "user_id",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "MDASCycle",
+        "description": "All models should inherit from this. If they have special serialization concerns, they can override Config.\n\n>>> class FunTime(WhoopModel):\n...     name: str\n...     start_time: datetime.datetime\n...\n>>> d = {\n... \"name\": \"yay\",\n... \"start_time\": datetime.datetime(2020, 1, 1, hour=0, tzinfo=datetime.timezone.utc),\n... \"extraBadField\": 3\n... }\n>>> FunTime(**d).json()\n'{\"name\": \"yay\", \"start_time\": \"2020-01-01T00:00:00.000+00:00\"}'"
+      },
+      "models__api__v1__recoveries__responses__MDASRecovery": {
+        "properties": {
+          "recovery_id": {
+            "type": "integer",
+            "title": "Recovery Id"
+          },
+          "quality_duration": {
+            "type": "integer",
+            "title": "Quality Duration"
+          },
+          "sleep_score": {
+            "type": "integer",
+            "title": "Sleep Score"
+          },
+          "is_nap": {
+            "type": "boolean",
+            "title": "Is Nap"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date"
+          },
+          "user_id": {
+            "type": "integer",
+            "title": "User Id"
+          },
+          "sleep_id": {
+            "type": "integer",
+            "title": "Sleep Id"
+          },
+          "cycle_id": {
+            "type": "integer",
+            "title": "Cycle Id"
+          },
+          "recovery_score": {
+            "type": "integer",
+            "title": "Recovery Score"
+          },
+          "resting_heart_rate": {
+            "type": "integer",
+            "title": "Resting Heart Rate"
+          },
+          "hrv_rmssd": {
+            "type": "number",
+            "title": "Hrv Rmssd"
+          },
+          "activity_state": {
+            "$ref": "#/components/schemas/ActivityState"
+          },
+          "is_calibrating": {
+            "type": "boolean",
+            "title": "Is Calibrating"
+          },
+          "prod_covid": {
+            "type": "number",
+            "title": "Prod Covid"
+          },
+          "hr_baseline": {
+            "type": "number",
+            "title": "Hr Baseline"
+          },
+          "skin_temp_celsius": {
+            "type": "number",
+            "title": "Skin Temp Celsius"
+          },
+          "spo2": {
+            "type": "number",
+            "title": "Spo2"
+          },
+          "algo_version": {
+            "type": "string",
+            "title": "Algo Version"
+          },
+          "rhr_component": {
+            "type": "number",
+            "title": "Rhr Component"
+          },
+          "hrv_component": {
+            "type": "number",
+            "title": "Hrv Component"
+          },
+          "is_normal": {
+            "type": "boolean",
+            "title": "Is Normal"
+          },
+          "history_size": {
+            "type": "number",
+            "title": "History Size"
+          },
+          "recovery_rate": {
+            "type": "number",
+            "title": "Recovery Rate"
+          },
+          "kilojoules": {
+            "type": "number",
+            "title": "Kilojoules"
+          },
+          "during": {
+            "$ref": "#/components/schemas/DateTimeTzRange"
+          },
+          "timezone_offset": {
+            "type": "string",
+            "title": "Timezone Offset"
+          },
+          "timezone": {
+            "type": "string",
+            "title": "Timezone"
+          },
+          "survey_response_id": {
+            "type": "integer",
+            "title": "Survey Response Id"
+          },
+          "percent_recorded": {
+            "type": "number",
+            "title": "Percent Recorded"
+          },
+          "is_responded": {
+            "type": "boolean",
+            "title": "Is Responded"
+          },
+          "activity_source": {
+            "$ref": "#/components/schemas/ActivitySource"
+          },
+          "score": {
+            "type": "integer",
+            "title": "Score"
+          },
+          "latency": {
+            "type": "integer",
+            "title": "Latency"
+          },
+          "is_significant": {
+            "type": "boolean",
+            "title": "Is Significant"
+          },
+          "debt_pre": {
+            "type": "number",
+            "title": "Debt Pre"
+          },
+          "debt_post": {
+            "type": "number",
+            "title": "Debt Post"
+          },
+          "need_from_strain": {
+            "type": "number",
+            "title": "Need From Strain"
+          },
+          "sleep_need": {
+            "type": "number",
+            "title": "Sleep Need"
+          },
+          "habitual_sleep_need": {
+            "type": "number",
+            "title": "Habitual Sleep Need"
+          },
+          "disturbances": {
+            "type": "number",
+            "title": "Disturbances"
+          },
+          "time_in_bed": {
+            "type": "number",
+            "title": "Time In Bed"
+          },
+          "light_sleep_duration": {
+            "type": "integer",
+            "title": "Light Sleep Duration"
+          },
+          "slow_wave_sleep_duration": {
+            "type": "integer",
+            "title": "Slow Wave Sleep Duration"
+          },
+          "rem_sleep_duration": {
+            "type": "integer",
+            "title": "Rem Sleep Duration"
+          },
+          "cycles_count": {
+            "type": "integer",
+            "title": "Cycles Count"
+          },
+          "wake_duration": {
+            "type": "integer",
+            "title": "Wake Duration"
+          },
+          "arousal_time": {
+            "type": "number",
+            "title": "Arousal Time"
+          },
+          "no_data_duration": {
+            "type": "integer",
+            "title": "No Data Duration"
+          },
+          "in_sleep_efficiency": {
+            "type": "number",
+            "title": "In Sleep Efficiency"
+          },
+          "credit_from_naps": {
+            "type": "number",
+            "title": "Credit From Naps"
+          },
+          "respiratory_rate": {
+            "type": "number",
+            "title": "Respiratory Rate"
+          },
+          "sleep_consistency": {
+            "type": "number",
+            "title": "Sleep Consistency"
+          },
+          "projected_score": {
+            "type": "number",
+            "title": "Projected Score"
+          },
+          "projected_sleep": {
+            "type": "number",
+            "title": "Projected Sleep"
+          },
+          "optimal_sleep_times": {
+            "$ref": "#/components/schemas/DateTimeTzRange"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "recovery_id",
+          "date",
+          "user_id",
+          "sleep_id",
+          "during",
+          "score",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "MDASRecovery",
+        "description": "All models should inherit from this. If they have special serialization concerns, they can override Config.\n\n>>> class FunTime(WhoopModel):\n...     name: str\n...     start_time: datetime.datetime\n...\n>>> d = {\n... \"name\": \"yay\",\n... \"start_time\": datetime.datetime(2020, 1, 1, hour=0, tzinfo=datetime.timezone.utc),\n... \"extraBadField\": 3\n... }\n>>> FunTime(**d).json()\n'{\"name\": \"yay\", \"start_time\": \"2020-01-01T00:00:00.000+00:00\"}'"
+      },
+      "models__api__v2__activities__requests__CreateMDASActivityRequest": {
+        "properties": {
+          "user_id": {
+            "type": "integer",
+            "title": "User Id"
+          },
+          "start_timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start Timestamp"
+          },
+          "end_timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End Timestamp"
+          },
+          "timezone": {
+            "type": "string",
+            "title": "Timezone"
+          },
+          "timezone_offset": {
+            "type": "string",
+            "title": "Timezone Offset"
+          },
+          "source": {
+            "$ref": "#/components/schemas/ActivitySource"
+          },
+          "score_state": {
+            "$ref": "#/components/schemas/ScoreState"
+          },
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "score_type": {
+            "$ref": "#/components/schemas/ScoreType"
+          },
+          "source_id": {
+            "type": "string",
+            "title": "Source Id"
+          },
+          "version": {
+            "type": "integer",
+            "title": "Version"
+          },
+          "cycle_id": {
+            "type": "integer",
+            "title": "Cycle Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "activity_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Activity Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_id",
+          "start_timestamp",
+          "end_timestamp",
+          "source",
+          "score_state",
+          "type",
+          "score_type",
+          "version",
+          "cycle_id",
+          "created_at",
+          "updated_at",
+          "activity_id"
+        ],
+        "title": "CreateMDASActivityRequest",
+        "description": "Base class for MDA activities request."
+      },
+      "models__api__v2__activities__requests__UpdateMDASActivityRequest": {
+        "properties": {
+          "user_id": {
+            "type": "integer",
+            "title": "User Id"
+          },
+          "start_timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start Timestamp"
+          },
+          "end_timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End Timestamp"
+          },
+          "timezone": {
+            "type": "string",
+            "title": "Timezone"
+          },
+          "timezone_offset": {
+            "type": "string",
+            "title": "Timezone Offset"
+          },
+          "source": {
+            "$ref": "#/components/schemas/ActivitySource"
+          },
+          "score_state": {
+            "$ref": "#/components/schemas/ScoreState"
+          },
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "score_type": {
+            "$ref": "#/components/schemas/ScoreType"
+          },
+          "source_id": {
+            "type": "string",
+            "title": "Source Id"
+          },
+          "version": {
+            "type": "integer",
+            "title": "Version"
+          },
+          "cycle_id": {
+            "type": "integer",
+            "title": "Cycle Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_id",
+          "start_timestamp",
+          "end_timestamp",
+          "source",
+          "score_state",
+          "type",
+          "score_type",
+          "version",
+          "cycle_id",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "UpdateMDASActivityRequest",
+        "description": "Base class for MDA activities request."
+      },
+      "models__api__v2__activities__responses__MDASActivity": {
+        "properties": {
+          "activity_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Activity Id"
+          },
+          "user_id": {
+            "type": "integer",
+            "title": "User Id"
+          },
+          "start_timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start Timestamp"
+          },
+          "end_timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End Timestamp"
+          },
+          "timezone": {
+            "type": "string",
+            "title": "Timezone"
+          },
+          "timezone_offset": {
+            "type": "string",
+            "title": "Timezone Offset"
+          },
+          "source": {
+            "$ref": "#/components/schemas/ActivitySource"
+          },
+          "score_state": {
+            "$ref": "#/components/schemas/ScoreState"
+          },
+          "score_type": {
+            "$ref": "#/components/schemas/ScoreType"
+          },
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "source_id": {
+            "type": "string",
+            "title": "Source Id"
+          },
+          "version": {
+            "type": "integer",
+            "title": "Version"
+          },
+          "cycle_id": {
+            "type": "integer",
+            "title": "Cycle Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "activity_id",
+          "user_id",
+          "start_timestamp",
+          "end_timestamp",
+          "source",
+          "score_state",
+          "score_type",
+          "type",
+          "version",
+          "cycle_id",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "MDASActivity",
+        "description": "All models should inherit from this. If they have special serialization concerns, they can override Config.\n\n>>> class FunTime(WhoopModel):\n...     name: str\n...     start_time: datetime.datetime\n...\n>>> d = {\n... \"name\": \"yay\",\n... \"start_time\": datetime.datetime(2020, 1, 1, hour=0, tzinfo=datetime.timezone.utc),\n... \"extraBadField\": 3\n... }\n>>> FunTime(**d).json()\n'{\"name\": \"yay\", \"start_time\": \"2020-01-01T00:00:00.000+00:00\"}'"
+      },
+      "models__api__v2__cycles__requests__CreateMDASCycleRequest": {
+        "properties": {
+          "user_id": {
+            "type": "integer",
+            "title": "User Id"
+          },
+          "start_timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start Timestamp"
+          },
+          "end_timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End Timestamp"
+          },
+          "sleep_need": {
+            "type": "integer",
+            "title": "Sleep Need"
+          },
+          "predicted_end": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Predicted End"
+          },
+          "timezone_offset": {
+            "type": "string",
+            "title": "Timezone Offset"
+          },
+          "start_day": {
+            "type": "string",
+            "format": "date",
+            "title": "Start Day"
+          },
+          "end_day": {
+            "type": "string",
+            "format": "date",
+            "title": "End Day"
+          },
+          "intensity_score": {
+            "type": "number",
+            "title": "Intensity Score"
+          },
+          "data_state": {
+            "$ref": "#/components/schemas/CycleState"
+          },
+          "day_strain": {
+            "type": "number",
+            "title": "Day Strain"
+          },
+          "day_kilojoules": {
+            "type": "number",
+            "title": "Day Kilojoules"
+          },
+          "day_avg_heart_rate": {
+            "type": "integer",
+            "title": "Day Avg Heart Rate"
+          },
+          "day_max_heart_rate": {
+            "type": "integer",
+            "title": "Day Max Heart Rate"
+          },
+          "scaled_strain": {
+            "type": "number",
+            "title": "Scaled Strain"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "cycle_id": {
+            "type": "integer",
+            "title": "Cycle Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_id",
+          "start_timestamp",
+          "predicted_end",
+          "timezone_offset",
+          "start_day",
+          "end_day",
+          "data_state",
+          "created_at",
+          "updated_at",
+          "cycle_id"
+        ],
+        "title": "CreateMDASCycleRequest",
+        "description": "Representation of a cycle in the MDAS database.\nBased on https://github.com/WhoopInc/activities-service/blob/4e6bd0353cce859d6923bbb03b53afaf0d075af6/activities-models/src/main/java/com/whoop/activity/model/cycles/CycleIF"
+      },
+      "models__api__v2__cycles__requests__UpdateMDASCycleRequest": {
+        "properties": {
+          "user_id": {
+            "type": "integer",
+            "title": "User Id"
+          },
+          "start_timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start Timestamp"
+          },
+          "end_timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End Timestamp"
+          },
+          "sleep_need": {
+            "type": "integer",
+            "title": "Sleep Need"
+          },
+          "predicted_end": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Predicted End"
+          },
+          "timezone_offset": {
+            "type": "string",
+            "title": "Timezone Offset"
+          },
+          "start_day": {
+            "type": "string",
+            "format": "date",
+            "title": "Start Day"
+          },
+          "end_day": {
+            "type": "string",
+            "format": "date",
+            "title": "End Day"
+          },
+          "intensity_score": {
+            "type": "number",
+            "title": "Intensity Score"
+          },
+          "data_state": {
+            "$ref": "#/components/schemas/CycleState"
+          },
+          "day_strain": {
+            "type": "number",
+            "title": "Day Strain"
+          },
+          "day_kilojoules": {
+            "type": "number",
+            "title": "Day Kilojoules"
+          },
+          "day_avg_heart_rate": {
+            "type": "integer",
+            "title": "Day Avg Heart Rate"
+          },
+          "day_max_heart_rate": {
+            "type": "integer",
+            "title": "Day Max Heart Rate"
+          },
+          "scaled_strain": {
+            "type": "number",
+            "title": "Scaled Strain"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_id",
+          "start_timestamp",
+          "predicted_end",
+          "timezone_offset",
+          "start_day",
+          "end_day",
+          "data_state",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "UpdateMDASCycleRequest",
+        "description": "Representation of a cycle in the MDAS database.\nBased on https://github.com/WhoopInc/activities-service/blob/4e6bd0353cce859d6923bbb03b53afaf0d075af6/activities-models/src/main/java/com/whoop/activity/model/cycles/CycleIF"
+      },
+      "models__api__v2__cycles__responses__MDASCycle": {
+        "properties": {
+          "cycle_id": {
+            "type": "integer",
+            "title": "Cycle Id"
+          },
+          "user_id": {
+            "type": "integer",
+            "title": "User Id"
+          },
+          "start_timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start Timestamp"
+          },
+          "end_timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End Timestamp"
+          },
+          "sleep_need": {
+            "type": "integer",
+            "title": "Sleep Need"
+          },
+          "predicted_end": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Predicted End"
+          },
+          "timezone_offset": {
+            "type": "string",
+            "title": "Timezone Offset"
+          },
+          "start_day": {
+            "type": "string",
+            "format": "date",
+            "title": "Start Day"
+          },
+          "end_day": {
+            "type": "string",
+            "format": "date",
+            "title": "End Day"
+          },
+          "intensity_score": {
+            "type": "number",
+            "title": "Intensity Score"
+          },
+          "data_state": {
+            "$ref": "#/components/schemas/CycleState"
+          },
+          "day_strain": {
+            "type": "number",
+            "title": "Day Strain"
+          },
+          "day_kilojoules": {
+            "type": "number",
+            "title": "Day Kilojoules"
+          },
+          "day_avg_heart_rate": {
+            "type": "integer",
+            "title": "Day Avg Heart Rate"
+          },
+          "day_max_heart_rate": {
+            "type": "integer",
+            "title": "Day Max Heart Rate"
+          },
+          "scaled_strain": {
+            "type": "number",
+            "title": "Scaled Strain"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "cycle_id",
+          "user_id",
+          "start_timestamp",
+          "predicted_end",
+          "timezone_offset",
+          "start_day",
+          "end_day",
+          "data_state",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "MDASCycle",
+        "description": "Data model representing a cycle returned from MDAS APIs"
+      },
+      "models__api__v2__recoveries__responses__MDASRecovery": {
+        "properties": {
+          "recovery_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Recovery Id"
+          },
+          "user_id": {
+            "type": "integer",
+            "title": "User Id"
+          },
+          "version": {
+            "type": "integer",
+            "title": "Version"
+          },
+          "cycle_id": {
+            "type": "integer",
+            "title": "Cycle Id"
+          },
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "start_timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start Timestamp"
+          },
+          "end_timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End Timestamp"
+          },
+          "score": {
+            "type": "integer",
+            "title": "Score"
+          },
+          "is_normal": {
+            "type": "boolean",
+            "title": "Is Normal"
+          },
+          "quality_duration": {
+            "type": "integer",
+            "title": "Quality Duration"
+          },
+          "latency": {
+            "type": "integer",
+            "title": "Latency"
+          },
+          "is_significant": {
+            "type": "boolean",
+            "title": "Is Significant"
+          },
+          "debt_pre": {
+            "type": "number",
+            "title": "Debt Pre"
+          },
+          "debt_post": {
+            "type": "number",
+            "title": "Debt Post"
+          },
+          "need_from_strain": {
+            "type": "number",
+            "title": "Need From Strain"
+          },
+          "sleep_need": {
+            "type": "number",
+            "title": "Sleep Need"
+          },
+          "habitual_sleep_need": {
+            "type": "number",
+            "title": "Habitual Sleep Need"
+          },
+          "disturbances": {
+            "type": "integer",
+            "title": "Disturbances"
+          },
+          "time_in_bed": {
+            "type": "number",
+            "title": "Time In Bed"
+          },
+          "light_sleep_duration": {
+            "type": "integer",
+            "title": "Light Sleep Duration"
+          },
+          "slow_wave_sleep_duration": {
+            "type": "integer",
+            "title": "Slow Wave Sleep Duration"
+          },
+          "rem_sleep_duration": {
+            "type": "integer",
+            "title": "Rem Sleep Duration"
+          },
+          "cycles_count": {
+            "type": "integer",
+            "title": "Cycles Count"
+          },
+          "wake_duration": {
+            "type": "integer",
+            "title": "Wake Duration"
+          },
+          "arousal_time": {
+            "type": "number",
+            "title": "Arousal Time"
+          },
+          "no_data_duration": {
+            "type": "integer",
+            "title": "No Data Duration"
+          },
+          "in_sleep_efficiency": {
+            "type": "number",
+            "title": "In Sleep Efficiency"
+          },
+          "credit_from_naps": {
+            "type": "number",
+            "title": "Credit From Naps"
+          },
+          "respiratory_rate": {
+            "type": "number",
+            "title": "Respiratory Rate"
+          },
+          "skin_temp_celsius": {
+            "type": "number",
+            "title": "Skin Temp Celsius"
+          },
+          "history_size": {
+            "type": "number",
+            "title": "History Size"
+          },
+          "spo2": {
+            "type": "number",
+            "title": "Spo2"
+          },
+          "algo_version": {
+            "type": "string",
+            "title": "Algo Version"
+          },
+          "projected_score": {
+            "type": "number",
+            "title": "Projected Score"
+          },
+          "projected_sleep": {
+            "type": "number",
+            "title": "Projected Sleep"
+          },
+          "sleep_consistency": {
+            "type": "number",
+            "title": "Sleep Consistency"
+          },
+          "total_wake_events": {
+            "type": "integer",
+            "title": "Total Wake Events"
+          },
+          "optimal_sleep_time_start": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Optimal Sleep Time Start"
+          },
+          "optimal_sleep_time_end": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Optimal Sleep Time End"
+          },
+          "recovery_score": {
+            "type": "integer",
+            "title": "Recovery Score"
+          },
+          "resting_heart_rate": {
+            "type": "integer",
+            "title": "Resting Heart Rate"
+          },
+          "hrv_rmssd": {
+            "type": "number",
+            "title": "Hrv Rmssd"
+          },
+          "is_calibrating": {
+            "type": "boolean",
+            "title": "Is Calibrating"
+          },
+          "rhr_component": {
+            "type": "number",
+            "title": "Rhr Component"
+          },
+          "hrv_component": {
+            "type": "number",
+            "title": "Hrv Component"
+          },
+          "recovery_rate": {
+            "type": "number",
+            "title": "Recovery Rate"
+          },
+          "hr_baseline": {
+            "type": "number",
+            "title": "Hr Baseline"
+          },
+          "score_state": {
+            "type": "string",
+            "title": "Score State"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "recovery_id",
+          "user_id",
+          "start_timestamp",
+          "end_timestamp",
+          "score",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "MDASRecovery",
+        "description": "All models should inherit from this. If they have special serialization concerns, they can override Config.\n\n>>> class FunTime(WhoopModel):\n...     name: str\n...     start_time: datetime.datetime\n...\n>>> d = {\n... \"name\": \"yay\",\n... \"start_time\": datetime.datetime(2020, 1, 1, hour=0, tzinfo=datetime.timezone.utc),\n... \"extraBadField\": 3\n... }\n>>> FunTime(**d).json()\n'{\"name\": \"yay\", \"start_time\": \"2020-01-01T00:00:00.000+00:00\"}'"
+      }
+    }
+  }
+}
