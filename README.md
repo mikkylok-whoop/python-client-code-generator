@@ -8,7 +8,7 @@ Templates to generate python client code
 ```bash
 brew install openapi-generator
 ```
-2. Navigate to the project directory and open the generation script
+2. Navigate to the project directory and open the `generate_build_client.sh` script
 ```bash
 cd python-client-code-generator/
 ```
