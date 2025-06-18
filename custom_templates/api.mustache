@@ -1,51 +1,39 @@
 from whoop_service_clients.base.client import BaseApiClient
 from datadog import DogStatsd
-from datetime import datetime
-from typing import List, Dict, Any, Optional, Union
+from typing import Optional
+
+{{#imports}}
+{{import}}
+{{/imports}}
 
 
 {{#operations}}
 class {{classname}}(BaseApiClient):
-    def __init__(
-        self,
-        uri: str,
-        api_token: str = None,
-        timeout: int = None,
-        statsd_client: DogStatsd = None,
-        max_requests_per_connection: int = None,
-        retry_count: int = 0,
-    ) -> None:
+    def __init__(self, uri: str, statsd_client: Optional[DogStatsd] = None) -> None:
         self._uri = uri
-        super().__init__(
-            service_uri=self._uri,
-            api_token=api_token,
-            timeout=timeout,
-            statsd_client=statsd_client,
-            max_requests_per_connection=max_requests_per_connection,
-            retry_count=retry_count,
-        )
+        super().__init__(service_uri=self._uri, statsd_client=statsd_client)
 {{#operation}}
 
-    def {{operationId}}(self, {{#allParams}}{{paramName}}{{^required}} = None{{/required}}{{^-last}}, {{/-last}}{{/allParams}}) -> {{#returnType}}{{returnType}}{{/returnType}}{{^returnType}}None{{/returnType}}:
+    def {{operationId}}(self, {{#allParams}}{{paramName}}: {{#isBodyParam}}{{dataType}}{{/isBodyParam}}{{^isBodyParam}}{{#isQueryParam}}{{#isDateTime}}datetime{{/isDateTime}}{{^isDateTime}}{{#isDate}}date{{/isDate}}{{^isDate}}{{dataType}}{{/isDate}}{{/isDateTime}}{{/isQueryParam}}{{^isQueryParam}}{{dataType}}{{/isQueryParam}}{{/isBodyParam}}{{^required}} = None{{/required}}{{^-last}}, {{/-last}}{{/allParams}}) -> {{#returnType}}{{returnType}}{{/returnType}}{{^returnType}}None{{/returnType}}:
         """{{#isDeprecated}}(Deprecated) {{/isDeprecated}}
 {{#notes}}
         {{{.}}}
 {{/notes}}
         """
         # Process query parameters
-        _query_params = []
+        _query_params: list[tuple[str, Any]] = []
 {{#queryParams}}
         if {{paramName}} is not None:
             {{#isDateTime}}
             if isinstance({{paramName}}, datetime):
-                _query_params.append(('{{baseName}}', {{paramName}}.strftime(self.format_datetime)))
+                _query_params.append(('{{baseName}}', self.format_datetime({{paramName}})))
             else:
                 _query_params.append(('{{baseName}}', {{paramName}}))
             {{/isDateTime}}
             {{^isDateTime}}
             {{#isDate}}
             if isinstance({{paramName}}, date):
-                _query_params.append(('{{baseName}}', {{paramName}}.strftime(self.format_datetime)))
+                _query_params.append(('{{baseName}}', self.format_datetime({{paramName}})))
             else:
                 _query_params.append(('{{baseName}}', {{paramName}}))
             {{/isDate}}
@@ -67,15 +55,12 @@ class {{classname}}(BaseApiClient):
 
         # HTTP method selection based on the operation
         {{#httpMethod}}
-        {{#lambda.lowercase}}
-        return self._{{.}}(
+        return self._{{#lambda.lowercase}}{{httpMethod}}{{/lambda.lowercase}}(
             url=request_url,
-            return_type={{#returnType}}{{{.}}}{{/returnType}}{{^returnType}}None{{/returnType}},
+            return_type={{#returnType}}{{returnType}}{{/returnType}}{{^returnType}}None{{/returnType}},
             query_params=_query_params,
             data=_body_params,
         )
-        {{/lambda.lowercase}}
         {{/httpMethod}}
-
 {{/operation}}
 {{/operations}}
